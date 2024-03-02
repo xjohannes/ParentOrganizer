@@ -12,7 +12,7 @@ import com.axeweb.parentorganizr.model.Greeting;
 @RestController
 public class GreetingController {
     
-    private static final String template = "Hello, %s!";
+    private static final String template = "Hello, restart %s!";
     private final AtomicLong counter = new AtomicLong();
 
     @GetMapping("/greeting")
