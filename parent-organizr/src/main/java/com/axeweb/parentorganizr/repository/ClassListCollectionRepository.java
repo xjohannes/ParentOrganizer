@@ -14,10 +14,10 @@ public class ClassListCollectionRepository {
     private final Map<String, ClassList> classLists = new HashMap<>();
 
     public ClassListCollectionRepository() {
-        classLists.put("1A", new ClassList("1", "A", "2021", "1A.csv"));
-        classLists.put("1B", new ClassList("1", "B", "2021", "1B.csv"));
-        classLists.put("2A", new ClassList("2", "A", "2020", "2A.csv"));
-        classLists.put("2B", new ClassList("2", "B", "2020", "2B.csv"));
+        classLists.put("1A", new ClassList("1", "A", "1A", "2021", "1A.csv"));
+        classLists.put("1B", new ClassList("1", "B", "1B", "2021", "1B.csv"));
+        classLists.put("2A", new ClassList("2", "A", "2A", "2020", "2A.csv"));
+        classLists.put("2B", new ClassList("2", "B", "2B", "2020", "2B.csv"));
     }
 
     public Collection<ClassList> findAll() {
