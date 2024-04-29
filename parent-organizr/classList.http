@@ -27,4 +27,4 @@ content-type: application/json
 }
 
 ### Delete existing classList
-DELETE http://localhost:8080/classlist/1B 
+DELETE http://localhost:8080/classlist/1B
