@@ -1,0 +1,30 @@
+### Get all classLists
+GET http://localhost:8080/classlist
+
+### Get one classList
+GET http://localhost:8080/classlist/1A
+
+### Create a classList
+POST http://localhost:8080/classlist HTTP/1.1
+content-type: application/json
+
+{
+    "classNumber": "1",
+    "classLetter": "B",
+    "startYear": "2011",
+    "filename": "1b_2011.csv"
+}
+
+### Update existing classList
+PUT http://localhost:8080/classlist/1B HTTP/1.1
+content-type: application/json
+
+{
+    "classNumber": "1",
+    "classLetter": "B",
+    "startYear": "2011",
+    "filename": "1B_NEW_2011.csv"
+}
+
+### Delete existing classList
+DELETE http://localhost:8080/classlist/1B

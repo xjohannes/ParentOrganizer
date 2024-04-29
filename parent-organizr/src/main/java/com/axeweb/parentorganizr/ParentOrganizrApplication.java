@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ParentOrganizrApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ParentOrganizrApplication.class, args);
+		 SpringApplication.run(ParentOrganizrApplication.class, args);
+
 	}
 
 }
