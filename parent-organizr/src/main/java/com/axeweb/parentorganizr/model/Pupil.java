@@ -1,7 +1,53 @@
 package com.axeweb.parentorganizr.model;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
-public record Pupil(String firstName, String lastName, LocalDateTime birthdate, String[] parents ) {
+public class Pupil extends Person {
+    private LocalDateTime birthdate;
+    private Set<Parent> parents;
+    public Pupil(String firstName, Set<Parent> parents) {
+        this.firstName = firstName;
+        this.parents = parents;
+    }
 
+    public LocalDateTime getBirthdate() {
+        return birthdate;
+    }
+    public Set<Parent> getParents() {
+        return parents;
+    }
+
+    public void setBirthdate(LocalDateTime birthdate) {
+        this.birthdate = birthdate;
+    }
+    public void setParents(Set<Parent> parents) {
+        this.parents = parents;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pupil pupil = (Pupil) o;
+        return firstName.equals(pupil.firstName) && lastName.equals(pupil.lastName) && birthdate.equals(pupil.birthdate) && parents.equals(pupil.parents);
+    }
+    @Override
+    public int hashCode() {
+        int result = firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + birthdate.hashCode();
+        result = 31 * result + parents.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Pupil{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthdate=" + birthdate +
+                ", parents=" + parents +
+                '}';
+    }
 }
