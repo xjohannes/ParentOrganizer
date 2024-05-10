@@ -181,59 +181,37 @@ INSERT INTO Event_assignment (event_id, assignment_id, date_created)
 VALUES (4, 4, CURRENT_TIMESTAMP);
 
 
-
 CREATE TABLE IF NOT EXISTS Location
 (
-    id INTEGER AUTO_INCREMENT UNIQUE          NOT NULL,
-    name varchar(255) NOT NULL,
-    building_id varchar(255),
-    address varchar(255),
-    description     varchar(255),
-    date_created    datetime DEFAULT (NOW())  NOT NULL,
-    date_updated    TIMESTAMP,
-    primary key (id), UNIQUE (name, building_id)
-);
-
-INSERT INTO Location (name, address, date_created)
-VALUES ('Storskolen', 'Solveien 113', CURRENT_TIMESTAMP);
-INSERT INTO Location (name, address, date_created)
-VALUES ('Lilleskolen', 'Solveien 115', CURRENT_TIMESTAMP);
-INSERT INTO Location (name, address, date_created)
-VALUES ('Krysset', 'Solveien 113', CURRENT_TIMESTAMP);
-
-
-CREATE TABLE IF NOT EXISTS Building
-(
-    id INTEGER AUTO_INCREMENT UNIQUE          NOT NULL,
-    location_id varchar(255)                  NOT NULL,
-    name varchar(255)                         NOT NULL,
+    id INTEGER AUTO_INCREMENT UNIQUE                  NOT NULL,
+    side enum('Storskolen', 'Lilleskolen', 'Krysset') NOT NULL,
+    name varchar(255)                                 NOT NULL,
     room varchar(255),
     floor varchar(255),
     description     varchar(255),
-    date_created    datetime DEFAULT (NOW())  NOT NULL,
+    date_created    datetime DEFAULT (NOW())          NOT NULL,
     date_updated    TIMESTAMP,
     primary key (id), UNIQUE (name, room)
 );
-
-INSERT INTO Building (location_id, name, room, floor, date_created)
+INSERT INTO Location (side, name, room, floor, date_created)
 VALUES (1, 'Hovedbygget', '5.klasserommet', '2', CURRENT_TIMESTAMP);
-INSERT INTO Building (location_id, name, room, floor, date_created)
+INSERT INTO Location (side, name, room, floor, date_created)
 VALUES (2, '1.klassebygget', 'Hovedrommet', '1', CURRENT_TIMESTAMP);
-INSERT INTO Building (location_id, name, room, floor, date_created)
+INSERT INTO Location (side, name, room, floor, date_created)
 VALUES (2, 'Det blå huset', '2.klasserommet', '1', CURRENT_TIMESTAMP);
-INSERT INTO Building (location_id, name, room, floor, date_created)
+INSERT INTO Location (side, name, room, floor, date_created)
 VALUES (2, 'Det blå huset', '3.klasserommet', '1', CURRENT_TIMESTAMP);
-INSERT INTO Building (location_id, name, room, floor, date_created)
+INSERT INTO Location (side, name, room, floor, date_created)
 VALUES (2, 'Det blå huset', 'Lillesalen', '-1', CURRENT_TIMESTAMP);
-INSERT INTO Building (location_id, name, room, floor, date_created)
+INSERT INTO Location (side, name, room, floor, date_created)
 VALUES (2, 'Det røde huset', '4.klasserommet', '1', CURRENT_TIMESTAMP);
-INSERT INTO Building (location_id, name, room, floor, date_created)
+INSERT INTO Location (side, name, room, floor, date_created)
 VALUES (3, 'Ute', 'Øvre fotgjengerfelt', '0', CURRENT_TIMESTAMP);
-INSERT INTO Building (location_id, name, room, floor, date_created)
+INSERT INTO Location (side, name, room, floor, date_created)
 VALUES (3, 'Ute', 'Nedre fotgjengerfelt', '0', CURRENT_TIMESTAMP);
-INSERT INTO Building (location_id, name, room, floor, description, date_created)
+INSERT INTO Location (side, name, room, floor, description, date_created)
 VALUES (1, 'Ute', 'Hovedbygget', '0', 'Plassen foran', CURRENT_TIMESTAMP);
-INSERT INTO Building (location_id, name, room, floor, description, date_created)
+INSERT INTO Location (side, name, room, floor, description, date_created)
 VALUES (2, 'Ute', 'Lilleskolen', '0', 'Sandplassen', CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS Time_slot
