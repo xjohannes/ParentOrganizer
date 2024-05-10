@@ -1,24 +1,26 @@
 package com.axeweb.parentorganizr.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 public class Pupil extends Person {
-    private LocalDateTime birthdate;
+
+    private LocalDate birthdate;
     private Set<Parent> parents;
-    public Pupil(String firstName, Set<Parent> parents) {
-        this.firstName = firstName;
+
+    public Pupil(String firstName, String lastName, Set<Parent> parents) {
+        super(firstName, lastName);
         this.parents = parents;
     }
 
-    public LocalDateTime getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
     public Set<Parent> getParents() {
         return parents;
     }
 
-    public void setBirthdate(LocalDateTime birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
     public void setParents(Set<Parent> parents) {
@@ -30,11 +32,13 @@ public class Pupil extends Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pupil pupil = (Pupil) o;
-        return firstName.equals(pupil.firstName) && lastName.equals(pupil.lastName) && birthdate.equals(pupil.birthdate) && parents.equals(pupil.parents);
+
+        return super.getId() == pupil.getId() && firstName.equals(pupil.firstName) && lastName.equals(pupil.lastName) && birthdate.equals(pupil.birthdate) && parents.equals(pupil.parents);
     }
     @Override
     public int hashCode() {
-        int result = firstName.hashCode();
+        int result = super.getId();
+        result = 31 * result + lastName.hashCode();
         result = 31 * result + lastName.hashCode();
         result = 31 * result + birthdate.hashCode();
         result = 31 * result + parents.hashCode();
@@ -43,8 +47,10 @@ public class Pupil extends Person {
 
     @Override
     public String toString() {
+
         return "Pupil{" +
-                "firstName='" + firstName + '\'' +
+                "id='" + super.getId() + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthdate=" + birthdate +
                 ", parents=" + parents +

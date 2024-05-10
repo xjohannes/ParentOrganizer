@@ -5,24 +5,27 @@ GET http://localhost:8080/pupil
 GET http://localhost:8080/pupil/1
 
 ### Create pupil
-POST http://localhost:8080/pupil HTTP/1.1
+POST http://localhost:8080/parent HTTP/1.1
 content-type: application/json
 
 {
-  "firstName": "John",
-  "lastName": "Doe",
-  "email": "john@doe.com",
-  "phoneNumber": "1234567890",
-  "birthdate": "2011-12-03T10:15:30",
+  "firstName": "Kristina",
+  "lastName": "Larson",
+  "email": "kristina@larson.com",
+  "phoneNumber": "987654321",
+  "birthdate": "1986-12-03T10:15:30",
   "address": "Some address"
 }
 
 ### Update pupil by id
-PUT http://localhost:8080/pupil/1 HTTP/1.1
+PUT http://localhost:8080/pupil/3 HTTP/1.1
 content-type: application/json
 
 {
+  "id": 3,
   "firstName": "John",
-  "phoneNumber": "1234567890",
-  "birthDate": "1990-01-01"
+  "lastName": "Doe",
+  "birthdate": "1990-01-01"
 }
+
+### Get all Parents

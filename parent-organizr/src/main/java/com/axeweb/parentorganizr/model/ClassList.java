@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public record ClassList(@NotBlank String classNumber, @NotBlank String classLetter, @Id @NotBlank String className,
-                        @NotNull String startYear, @NotBlank List<Pupil> pupils) {
+                        @NotNull String startYear, List<Pupil> pupils) {
 
     public ClassList addPupil(Pupil pupil) {
         List<Pupil> newPupils = new ArrayList<>(pupils);

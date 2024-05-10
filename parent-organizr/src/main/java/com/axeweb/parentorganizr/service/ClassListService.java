@@ -43,6 +43,6 @@ public class ClassListService {
             Parent parent2 = new Parent(line.split("\\|")[3], line.split("\\|")[4]);
             parents.add(parent2);
         }
-        Pupil pupil = new Pupil(line.split("\\|")[0], parents);
+        new Pupil(line.split("\\|")[0], line.split("\\|")[1], parents);
     }
 }
