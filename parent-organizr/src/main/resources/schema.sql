@@ -16,11 +16,16 @@ VALUES ('1', 'a', '1a', '2020', '1A_2020', CURRENT_TIMESTAMP);
 INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
 VALUES ('1', 'b', '1b', '2020', '1B_2020', CURRENT_TIMESTAMP);
 INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('2', 'a', '2a', '2020', '2A_2020', CURRENT_TIMESTAMP);
+VALUES ('2', 'a', '2a', '2020', '2A_2019', CURRENT_TIMESTAMP);
 INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('2', 'b', '2b', '2020', '2B_2020', CURRENT_TIMESTAMP);
+VALUES ('2', 'b', '2b', '2020', '2B_2019', CURRENT_TIMESTAMP);
 INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('3', 'a', '3a', '2020', '3A_2020', CURRENT_TIMESTAMP);
+VALUES ('3', 'a', '3a', '2020', '3A_2018', CURRENT_TIMESTAMP);
+INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
+VALUES ('3', 'b', '3b', '2020', '3B_2018', CURRENT_TIMESTAMP);
+INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
+VALUES ('10', '-', '10', '2020', '10_2011', CURRENT_TIMESTAMP);
+
 
 -- CREATE TABLE IF NOT EXISTS Person
 -- (
@@ -83,6 +88,8 @@ INSERT INTO Pupil (id, first_name, last_name, class_id, birthdate, date_created)
 VALUES (5, 'Sally', 'Hutch', 1, '2016-05-08', CURRENT_TIMESTAMP);
 INSERT INTO Pupil (id, first_name, last_name, class_id, birthdate, date_created)
 VALUES (6, 'Harry', 'Hutch', 2, '2018-06-08', CURRENT_TIMESTAMP);
+INSERT INTO Pupil (id, first_name, last_name, class_id, birthdate, date_created)
+VALUES (7, 'Hermione', 'Hutch', 7, '2018-06-08', CURRENT_TIMESTAMP);
 --
 CREATE TABLE IF NOT EXISTS Parent_contract
 (
@@ -131,66 +138,16 @@ VALUES ('Trafikkvakt', '2020-09-03', '08:15:00', '08:45:00', CURRENT_TIMESTAMP);
 INSERT INTO Event (name, date, start_time, end_time, date_created)
 VALUES ('Julemarked', '2020-12-01', '10:00:00', '17:00:00', CURRENT_TIMESTAMP);
 
-CREATE TABLE IF NOT EXISTS Assignment
-(
-    id INTEGER AUTO_INCREMENT UNIQUE          NOT NULL,
-    name varchar(255)                         NOT NULL,
-    location_id varchar(255)                  NOT NULL,
-    description     varchar(255),
-    date_created    datetime DEFAULT (NOW())  NOT NULL,
-    date_updated    TIMESTAMP,
-    primary key (id)
-);
-INSERT INTO Assignment (name, location_id, date_created)
-VALUES ('Trafikkvakt', 3, CURRENT_TIMESTAMP);
-INSERT INTO Assignment (name, location_id, date_created)
-VALUES ('Rigge', 1, CURRENT_TIMESTAMP);
-INSERT INTO Assignment (name, location_id, date_created)
-VALUES ('Kafe', 1, CURRENT_TIMESTAMP);
-INSERT INTO Assignment (name, location_id, date_created)
-VALUES ('Delikatesser', 2, CURRENT_TIMESTAMP);
-INSERT INTO Assignment (name, location_id, description, date_created)
-VALUES ('Rake løv', 2, 'Alt løv skal rakes og legges i gjennomsiktige avfallssekker. Sekkene skal settes ved komposthaugen ved lilleskolen.', CURRENT_TIMESTAMP);
-INSERT INTO Assignment (name, location_id, date_created)
-VALUES ('Rydde', 2,  CURRENT_TIMESTAMP);
-
-CREATE TABLE IF NOT EXISTS Event_assignment
-(
-    id           INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
-    event_id     INTEGER                       NOT NULL,
-    assignment_id INTEGER                      NOT NULL,
-    date_created datetime DEFAULT (NOW())      NOT NULL,
-    date_updated TIMESTAMP,
-    primary key (id),
-    foreign key (event_id) references Event (id),
-    foreign key (assignment_id) references Assignment (id),
-    unique (event_id, assignment_id)
-);
-
-INSERT INTO Event_assignment (event_id, assignment_id, date_created)
-VALUES (1, 1, CURRENT_TIMESTAMP);
-INSERT INTO Event_assignment (event_id, assignment_id, date_created)
-VALUES (2, 1, CURRENT_TIMESTAMP);
-INSERT INTO Event_assignment (event_id, assignment_id, date_created)
-VALUES (3, 1, CURRENT_TIMESTAMP);
-INSERT INTO Event_assignment (event_id, assignment_id, date_created)
-VALUES (4, 2, CURRENT_TIMESTAMP);
-INSERT INTO Event_assignment (event_id, assignment_id, date_created)
-VALUES (4, 3, CURRENT_TIMESTAMP);
-INSERT INTO Event_assignment (event_id, assignment_id, date_created)
-VALUES (4, 4, CURRENT_TIMESTAMP);
-
-
 CREATE TABLE IF NOT EXISTS Location
 (
-    id INTEGER AUTO_INCREMENT UNIQUE                  NOT NULL,
-    side enum('Storskolen', 'Lilleskolen', 'Krysset') NOT NULL,
-    name varchar(255)                                 NOT NULL,
-    room varchar(255),
-    floor varchar(255),
-    description     varchar(255),
-    date_created    datetime DEFAULT (NOW())          NOT NULL,
-    date_updated    TIMESTAMP,
+    id           INTEGER AUTO_INCREMENT UNIQUE                NOT NULL,
+    side         enum('Storskolen', 'Lilleskolen', 'Krysset') NOT NULL,
+    name         varchar(255)                                 NOT NULL,
+    room         varchar(255),
+    floor        varchar(255),
+    description  varchar(255),
+    date_created datetime DEFAULT (NOW())                     NOT NULL,
+    date_updated TIMESTAMP,
     primary key (id), UNIQUE (name, room)
 );
 INSERT INTO Location (side, name, room, floor, date_created)
@@ -213,6 +170,68 @@ INSERT INTO Location (side, name, room, floor, description, date_created)
 VALUES (1, 'Ute', 'Hovedbygget', '0', 'Plassen foran', CURRENT_TIMESTAMP);
 INSERT INTO Location (side, name, room, floor, description, date_created)
 VALUES (2, 'Ute', 'Lilleskolen', '0', 'Sandplassen', CURRENT_TIMESTAMP);
+
+CREATE TABLE IF NOT EXISTS Assignment
+(
+    id           INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
+    name         varchar(255)                  NOT NULL,
+    location_id  INTEGER                       NOT NULL,
+    description  varchar(255),
+    date_created datetime DEFAULT (NOW())      NOT NULL,
+    date_updated TIMESTAMP,
+    primary key (id)
+);
+INSERT INTO Assignment (name, location_id, date_created)
+VALUES ('Trafikkvakt', 7, CURRENT_TIMESTAMP);
+INSERT INTO Assignment (name, location_id, date_created)
+VALUES ('Trafikkvakt', 8, CURRENT_TIMESTAMP);
+INSERT INTO Assignment (name, location_id, date_created)
+VALUES ('Trafikkvakt', 9, CURRENT_TIMESTAMP);
+INSERT INTO Assignment (name, location_id, date_created)
+VALUES ('Rigge', 9, CURRENT_TIMESTAMP);
+INSERT INTO Assignment (name, location_id, date_created)
+VALUES ('Café', 1, CURRENT_TIMESTAMP);
+INSERT INTO Assignment (name, location_id, date_created)
+VALUES ('Delikatesser', 2, CURRENT_TIMESTAMP);
+INSERT INTO Assignment (name, location_id, description, date_created)
+VALUES ('Rake løv', 2, 'Alt løv skal rakes og legges i gjennomsiktige avfallssekker. Sekkene skal settes ved komposthaugen ved lilleskolen.', CURRENT_TIMESTAMP);
+INSERT INTO Assignment (name, location_id, date_created)
+VALUES ('Rydde', 9,  CURRENT_TIMESTAMP);
+INSERT INTO Assignment (name, location_id, date_created)
+VALUES ('Café 10.klasse', 3, CURRENT_TIMESTAMP);
+
+CREATE TABLE IF NOT EXISTS Event_assignment
+(
+    id            INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
+    event_id      INTEGER                       NOT NULL,
+    assignment_id INTEGER                       NOT NULL,
+    date_created  datetime DEFAULT (NOW())      NOT NULL,
+    date_updated  TIMESTAMP,
+    primary key (id),
+    foreign key (event_id) references Event (id),
+    foreign key (assignment_id) references Assignment (id),
+    unique (event_id, assignment_id)
+);
+
+INSERT INTO Event_assignment (event_id, assignment_id, date_created)
+VALUES (1, 1, CURRENT_TIMESTAMP);
+INSERT INTO Event_assignment (event_id, assignment_id, date_created)
+VALUES (2, 2, CURRENT_TIMESTAMP);
+INSERT INTO Event_assignment (event_id, assignment_id, date_created)
+VALUES (3, 3, CURRENT_TIMESTAMP);
+INSERT INTO Event_assignment (event_id, assignment_id, date_created)
+VALUES (4, 4, CURRENT_TIMESTAMP);
+INSERT INTO Event_assignment (event_id, assignment_id, date_created)
+VALUES (4, 5, CURRENT_TIMESTAMP);
+INSERT INTO Event_assignment (event_id, assignment_id, date_created)
+VALUES (4, 6, CURRENT_TIMESTAMP);
+INSERT INTO Event_assignment (event_id, assignment_id, date_created)
+VALUES (4, 7, CURRENT_TIMESTAMP);
+INSERT INTO Event_assignment (event_id, assignment_id, date_created)
+VALUES (4, 8, CURRENT_TIMESTAMP);
+INSERT INTO Event_assignment (event_id, assignment_id, date_created)
+VALUES (4, 9, CURRENT_TIMESTAMP);
+
 
 CREATE TABLE IF NOT EXISTS Time_slot
 (
@@ -237,25 +256,29 @@ VALUES ('14:00:00', '16:00:00', CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS Watch
 (
-    id           INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
-    assignment_id   varchar(255)                  NOT NULL,
-    parent_id     varchar(255)                 NOT NULL,
-    time_slot    varchar(255),
-    date_created datetime DEFAULT (NOW())      NOT NULL,
+    id            INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
+    assignment_id INTEGER                       NOT NULL,
+    parent_id     INTEGER,
+    pupil_id      INTEGER,
+    time_slot_id  INTEGER,
+    date_created datetime DEFAULT (NOW())       NOT NULL,
     date_updated TIMESTAMP,
-    primary key (time_slot, assignment_id),
-    foreign key (time_slot) references Time_slot (id),
-    foreign key (assignment_id) references Assignment (id)
+    primary key (time_slot_id, assignment_id),
+    foreign key (time_slot_id) references Time_slot (id),
+    foreign key (assignment_id) references Assignment (id),
+    CHECK (parent_id IS NOT NULL OR pupil_id IS NOT NULL)
 );
 
-INSERT INTO Watch (time_slot, assignment_id, parent_id, date_created)
+INSERT INTO Watch (time_slot_id, assignment_id, parent_id, date_created)
 VALUES ('1', '1', '1', CURRENT_TIMESTAMP);
-INSERT INTO Watch (time_slot, assignment_id, parent_id, date_created)
+INSERT INTO Watch (time_slot_id, assignment_id, parent_id, date_created)
 VALUES ('2', '2', '2', CURRENT_TIMESTAMP);
-INSERT INTO Watch (time_slot, assignment_id, parent_id, date_created)
+INSERT INTO Watch (time_slot_id, assignment_id, parent_id, date_created)
 VALUES ('3', '3', '3', CURRENT_TIMESTAMP);
-INSERT INTO Watch (time_slot, assignment_id, parent_id, date_created)
+INSERT INTO Watch (time_slot_id, assignment_id, parent_id, date_created)
 VALUES ('1', '4', '1', CURRENT_TIMESTAMP);
+INSERT INTO Watch (time_slot_id, assignment_id, pupil_id, date_created)
+VALUES ('1', '7', '3', CURRENT_TIMESTAMP);
 
 
 
