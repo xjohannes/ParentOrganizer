@@ -80,16 +80,16 @@ CREATE TABLE IF NOT EXISTS Pupil
 );
 --
 -- // Insert children
-INSERT INTO Pupil (id, first_name, last_name, class_id, birthdate, date_created)
-VALUES (3, 'Nancy', 'Drew', 1, '2016-01-01', CURRENT_TIMESTAMP);
-INSERT INTO Pupil (id, first_name, last_name, class_id, birthdate, date_created)
-VALUES (4, 'Tom', 'Waits', 1, '2016-04-08', CURRENT_TIMESTAMP);
-INSERT INTO Pupil (id, first_name, last_name, class_id, birthdate, date_created)
-VALUES (5, 'Sally', 'Hutch', 1, '2016-05-08', CURRENT_TIMESTAMP);
-INSERT INTO Pupil (id, first_name, last_name, class_id, birthdate, date_created)
-VALUES (6, 'Harry', 'Hutch', 2, '2018-06-08', CURRENT_TIMESTAMP);
-INSERT INTO Pupil (id, first_name, last_name, class_id, birthdate, date_created)
-VALUES (7, 'Hermione', 'Hutch', 7, '2018-06-08', CURRENT_TIMESTAMP);
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
+VALUES ('Nancy', 'Drew', 1, '2016-01-01', CURRENT_TIMESTAMP);
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
+VALUES ('Tom', 'Waits', 1, '2016-04-08', CURRENT_TIMESTAMP);
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
+VALUES ('Sally', 'Hutch', 1, '2016-05-08', CURRENT_TIMESTAMP);
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
+VALUES ('Harry', 'Hutch', 2, '2018-06-08', CURRENT_TIMESTAMP);
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
+VALUES ('Hermione', 'Hutch', 7, '2018-06-08', CURRENT_TIMESTAMP);
 --
 CREATE TABLE IF NOT EXISTS Parent_contract
 (
@@ -105,17 +105,17 @@ CREATE TABLE IF NOT EXISTS Parent_contract
 );
 --
 INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (1, 5, CURRENT_TIMESTAMP);
+VALUES (1, 3, CURRENT_TIMESTAMP);
 INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (1, 6, CURRENT_TIMESTAMP);
+VALUES (1, 4, CURRENT_TIMESTAMP);
 INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (2, 5, CURRENT_TIMESTAMP);
+VALUES (2, 3, CURRENT_TIMESTAMP);
 INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (2, 6, CURRENT_TIMESTAMP);
+VALUES (2, 4, CURRENT_TIMESTAMP);
 INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (3, 3, CURRENT_TIMESTAMP);
+VALUES (3, 1, CURRENT_TIMESTAMP);
 INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (3, 4, CURRENT_TIMESTAMP);
+VALUES (3, 2, CURRENT_TIMESTAMP);
 --
 CREATE TABLE IF NOT EXISTS Event
 (
@@ -278,7 +278,7 @@ VALUES ('3', '3', '3', CURRENT_TIMESTAMP);
 INSERT INTO Watch (time_slot_id, assignment_id, parent_id, date_created)
 VALUES ('1', '4', '1', CURRENT_TIMESTAMP);
 INSERT INTO Watch (time_slot_id, assignment_id, pupil_id, date_created)
-VALUES ('1', '7', '3', CURRENT_TIMESTAMP);
+VALUES ('1', '9', '5', CURRENT_TIMESTAMP);
 
 
 
