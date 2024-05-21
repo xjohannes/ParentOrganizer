@@ -1,7 +1,22 @@
 package com.axeweb.parentorganizr.model;
 
-import java.time.LocalDateTime;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
 
-public record Pupil(String firstName, String lastName, LocalDateTime birthdate, String[] parents ) {
+import java.time.LocalDate;
 
+@Data
+public class Pupil {
+    @Id
+    private Integer id;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthdate;
+    private String classId;
+
+    public Pupil(String firstName, String lastName, LocalDate birthdate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+    }
 }

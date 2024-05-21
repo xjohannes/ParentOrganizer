@@ -1,0 +1,10 @@
+A klasse 2021
+
+Barn | Forelder 1 | Tlf | Forelder 2 | Tlf
+---- | ---------- | --- | ---------- | ---
+Fredrik | Mari | 12345678 | Per | 87654321
+Ola | Kari | 23456789 | Lise | 76543210
+Knut | Anne | 34567890 | Bjørn | 65432109
+Kari | Ola | 45678901 | Mari | 54321098
+Lise | Bjørn | 56789012 | Anne | 43210987
+Per | Mari | 67890123 | Fredrik |
