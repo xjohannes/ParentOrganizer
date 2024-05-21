@@ -1,6 +1,5 @@
 package com.axeweb.parentorganizr.contoller;
 
-import com.axeweb.parentorganizr.model.Person;
 import com.axeweb.parentorganizr.model.Pupil;
 import com.axeweb.parentorganizr.repository.PupilRepository;
 import jakarta.validation.Valid;
@@ -27,7 +26,7 @@ public class PupilController {
     }
 
     @GetMapping("/{id}")
-    public Person findById(@PathVariable Integer id) {
+    public Pupil findById(@PathVariable Integer id) {
         return repository.findById(id).orElse(null);
     }
 // TODO: Implement the findByName method
@@ -39,14 +38,16 @@ public class PupilController {
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@Valid @RequestBody Pupil pupil) {
+        System.out.println("CREAT id = " + pupil.getId());
         repository.save(pupil);
     }
     @PutMapping("/{id}")
-    public void update(@PathVariable Integer id, @RequestBody Pupil person) {
+    public void update(@PathVariable Integer id, @RequestBody Pupil pupil) {
+        System.out.println("id#$ = " + pupil.getId());
         if (!repository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pupil id was not found");
         }
-        repository.save(person);
+        repository.save(pupil);
     }
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {

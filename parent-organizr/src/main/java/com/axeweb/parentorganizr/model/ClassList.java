@@ -1,19 +1,29 @@
 package com.axeweb.parentorganizr.model;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-public record ClassList(@NotBlank String classNumber, @NotBlank String classLetter, @Id @NotBlank String className,
-                        @NotNull String startYear, List<Pupil> pupils) {
+@Data
+public class ClassList {
+    @Id
+    private Integer id;
+    private String classLetter;
+    private String className;
+    private String startYear;
+    private Set<Pupil> pupils = new HashSet<>();
+
+    public ClassList(String classLetter, String className, String startYear) {
+        this.classLetter = classLetter;
+        this.className = className;
+        this.startYear = startYear;
+    }
 
     public ClassList addPupil(Pupil pupil) {
-        List<Pupil> newPupils = new ArrayList<>(pupils);
-        newPupils.add(pupil);
-        return new ClassList(classNumber, classLetter, className, startYear, newPupils);
+        this.pupils.add(pupil);
+        return this;
     }
     @Override
     public boolean equals(Object o) {
@@ -25,13 +35,12 @@ public record ClassList(@NotBlank String classNumber, @NotBlank String classLett
         for (Pupil pupil : pupils) {
             if (!classList.pupils.contains(pupil)) { return false; }
         }
-        return classNumber.equals(classList.classNumber) && classLetter.equals(classList.classLetter) && className.equals(classList.className) && startYear.equals(classList.startYear);
+        return classLetter.equals(classList.classLetter) && className.equals(classList.className) && startYear.equals(classList.startYear);
     }
 
     @Override
     public int hashCode() {
-        int result = classNumber.hashCode();
-        result = 31 * result + classLetter.hashCode();
+        int result = classLetter.hashCode();
         result = 31 * result + className.hashCode();
         result = 31 * result + startYear.hashCode();
         for (Pupil pupil : pupils) {
@@ -43,7 +52,6 @@ public record ClassList(@NotBlank String classNumber, @NotBlank String classLett
     @Override
     public String toString() {
         return "ClassList{" +
-                "classNumber='" + classNumber + '\'' +
                 ", classLetter='" + classLetter + '\'' +
                 ", className='" + className + '\'' +
                 ", startYear='" + startYear + '\'' +

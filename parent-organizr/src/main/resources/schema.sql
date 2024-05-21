@@ -1,122 +1,99 @@
 CREATE TABLE IF NOT EXISTS Class_list
 (
     id           INTEGER AUTO_INCREMENT,
-    class_number varchar(255) NOT NULL,
-    class_letter varchar(255) NOT NULL,
-    class_name   varchar(255) NOT NULL,
-    start_year   varchar(255) NOT NULL,
-    filename     varchar(255) NOT NULL,
-    date_created TIMESTAMP    NOT NULL,
+    class_letter varchar(2) NOT NULL,
+    class_name   varchar(4) ,
+    start_year   varchar(4) NOT NULL,
+    filename     varchar(255),
+    date_created TIMESTAMP DEFAULT (NOW()),
     date_updated TIMESTAMP,
-    primary key (id)
+    primary key (class_letter, start_year)
 );
 
-INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('1', 'a', '1a', '2020', '1A_2020', CURRENT_TIMESTAMP);
-INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('1', 'b', '1b', '2020', '1B_2020', CURRENT_TIMESTAMP);
-INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('2', 'a', '2a', '2020', '2A_2019', CURRENT_TIMESTAMP);
-INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('2', 'b', '2b', '2020', '2B_2019', CURRENT_TIMESTAMP);
-INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('3', 'a', '3a', '2020', '3A_2018', CURRENT_TIMESTAMP);
-INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('3', 'b', '3b', '2020', '3B_2018', CURRENT_TIMESTAMP);
-INSERT INTO Class_list (class_number, class_letter, class_name, start_year, filename, date_created)
-VALUES ('10', '-', '10', '2020', '10_2011', CURRENT_TIMESTAMP);
+INSERT INTO Class_list (class_letter, class_name, start_year, filename)
+VALUES ('a', '1a', '2023', '1A_2020');
+INSERT INTO Class_list (class_letter, class_name, start_year, filename)
+VALUES ('b', '1b', '2023', '1B_2020');
+INSERT INTO Class_list (class_letter, class_name, start_year, filename)
+VALUES ('a', '2a', '2022', '2A_2019');
+INSERT INTO Class_list (class_letter, class_name, start_year, filename)
+VALUES ('b', '2b', '2022', '2B_2019');
+INSERT INTO Class_list (class_letter, class_name, start_year, filename)
+VALUES ('a', '3a', '2021', '3A_2018');
+INSERT INTO Class_list (class_letter, class_name, start_year, filename)
+VALUES ('b', '3b', '2021', '3B_2018');
+INSERT INTO Class_list (class_letter, class_name, start_year, filename)
+VALUES ('a', '10a', '2014', '10_2011');
 
-
--- CREATE TABLE IF NOT EXISTS Person
--- (
---     id           INTEGER AUTO_INCREMENT,
---     first_name   varchar(255) NOT NULL,
---     last_name    varchar(255) NOT NULL,
---     date_created datetime DEFAULT (NOW()) NOT NULL,
---     date_updated TIMESTAMP,
---     primary key (id),
--- );
-
--- INSERT INTO Person (first_name, last_name, date_created)
--- VALUES ('John', 'Hutch', CURRENT_TIMESTAMP);
--- INSERT INTO Person (first_name, last_name, date_created)
--- VALUES ('Jane', 'Hutch', CURRENT_TIMESTAMP);
--- INSERT INTO Person (first_name, last_name, date_created)
--- VALUES ('Jack', 'Hutch', CURRENT_TIMESTAMP);
--- INSERT INTO Person (first_name, last_name, date_created)
--- VALUES ('Jill', 'Hutch', CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS Parent
 (
     id           INTEGER AUTO_INCREMENT,
-    first_name   varchar(255)             NOT NULL,
-    last_name    varchar(255)             NOT NULL,
-    email        varchar(255),
-    address      varchar(255),
-    phone_number varchar(255),
-    date_created datetime DEFAULT (NOW()) NOT NULL,
+    first_name   varchar(100) NOT NULL,
+    last_name    varchar(100) NOT NULL,
+    email        varchar(100),
+    phone_number varchar(20) NOT NULL,
+    date_created datetime DEFAULT (NOW()),
     date_updated TIMESTAMP,
-    primary key (id)
+    primary key (phone_number),
+    UNIQUE (email)
+
     -- foreign key (class_id) references Class_list (id)
 );
-INSERT INTO Parent (id, first_name, last_name, email, address, phone_number, date_created)
-VALUES (1, 'John', 'Hutch', 'john@hutch.com', '123 Main St', '555-555-5555', CURRENT_TIMESTAMP);
-INSERT INTO Parent (id, first_name, last_name, email, address, phone_number, date_created)
-VALUES (2, 'Jane', 'Hutch', 'jane@hutch.com', '123 Main St', '555-555-4444', CURRENT_TIMESTAMP);
-INSERT INTO Parent (id, first_name, last_name, email, address, phone_number, date_created)
-VALUES (3, 'Lisa', 'Danielson', 'lisa@)lisandra.com', 'Gml Gravs vei 17', '920 63 000', CURRENT_TIMESTAMP);
+INSERT INTO Parent (first_name, last_name, email, phone_number)
+VALUES ('John', 'Hutch', 'john@hutch.com', '92147348');
+INSERT INTO Parent (first_name, last_name, email, phone_number)
+VALUES ('Jane', 'Hutch', 'jane@hutch.com', '9 48 9 90 9');
+INSERT INTO Parent (first_name, last_name, email, phone_number)
+VALUES ('Lisa', 'Danielson', 'lisa@lisandra.com', '920 63 000');
 
 CREATE TABLE IF NOT EXISTS Pupil
 (
-    id           INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
-    first_name   varchar(255)                  NOT NULL,
-    last_name    varchar(255)                  NOT NULL,
-    class_id     INTEGER,
+    id           INTEGER AUTO_INCREMENT NOT NULL,
+    first_name   varchar(70)                  NOT NULL,
+    last_name    varchar(70)                  NOT NULL,
+    class_id     INTEGER                      NOT NULL,
+    phone_number varchar(20),
     birthdate    DATE,
-    date_created datetime DEFAULT (NOW())      NOT NULL,
+    date_created TIMESTAMP DEFAULT (NOW()),
     date_updated TIMESTAMP,
-    primary key (id),
-    foreign key (class_id) references Class_list (id)
+    primary key (first_name, last_name, class_id)
+   -- foreign key (class_id) references Class_list (id)
 );
 --
 -- // Insert children
-INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
-VALUES ('Nancy', 'Drew', 1, '2016-01-01', CURRENT_TIMESTAMP);
-INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
-VALUES ('Tom', 'Waits', 1, '2016-04-08', CURRENT_TIMESTAMP);
-INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
-VALUES ('Sally', 'Hutch', 1, '2016-05-08', CURRENT_TIMESTAMP);
-INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
-VALUES ('Harry', 'Hutch', 2, '2018-06-08', CURRENT_TIMESTAMP);
-INSERT INTO Pupil (first_name, last_name, class_id, birthdate, date_created)
-VALUES ('Hermione', 'Hutch', 7, '2018-06-08', CURRENT_TIMESTAMP);
---
-CREATE TABLE IF NOT EXISTS Parent_contract
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate)
+VALUES ('Nancy', 'Drew', 1, '2016-01-01');
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate)
+VALUES ('Tom', 'Waits', 1, '2016-04-08');
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate)
+VALUES ('Sally', 'Hutch', 1, '2016-05-08');
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate)
+VALUES ('Harry', 'Hutch', 2, '2018-06-08');
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate)
+VALUES ('Hermione', 'Hutch', 7, '2018-06-08');
+
+CREATE TABLE IF NOT EXISTS parent_pupil
 (
-    id           INTEGER AUTO_INCREMENT,
-    parent_id    INTEGER   NOT NULL,
-    pupil_id     INTEGER   NOT NULL,
-    date_created TIMESTAMP NOT NULL,
-    date_updated TIMESTAMP,
-    primary key (id),
-    foreign key (parent_id) references Parent (id),
-    foreign key (pupil_id) references Pupil (id),
-    unique (parent_id, pupil_id)
+    id           INTEGER,
+    parent_id    INTEGER,
+    pupil_id     INTEGER,
+    primary key (parent_id, pupil_id)
 );
---
-INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (1, 3, CURRENT_TIMESTAMP);
-INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (1, 4, CURRENT_TIMESTAMP);
-INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (2, 3, CURRENT_TIMESTAMP);
-INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (2, 4, CURRENT_TIMESTAMP);
-INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (3, 1, CURRENT_TIMESTAMP);
-INSERT INTO Parent_contract (parent_id, pupil_id, date_created)
-VALUES (3, 2, CURRENT_TIMESTAMP);
---
+
+INSERT INTO Parent_Pupil (parent_id, pupil_id)
+VALUES (1, 3);
+INSERT INTO Parent_Pupil (parent_id, pupil_id)
+VALUES (1, 4);
+INSERT INTO Parent_Pupil (parent_id, pupil_id)
+VALUES (2, 3);
+INSERT INTO Parent_Pupil (parent_id, pupil_id)
+VALUES (2, 4);
+INSERT INTO Parent_Pupil (parent_id, pupil_id)
+VALUES (3, 1);
+INSERT INTO Parent_Pupil (parent_id, pupil_id)
+VALUES (3, 2);
+
 CREATE TABLE IF NOT EXISTS Event
 (
     id           INTEGER AUTO_INCREMENT UNIQUE NOT NULL,

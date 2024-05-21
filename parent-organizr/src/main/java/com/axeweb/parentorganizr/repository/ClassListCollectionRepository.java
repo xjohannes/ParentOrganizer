@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public class ClassListCollectionRepository {
-    private final Map<String, ClassList> classLists = new HashMap<>();
+    private final Map<Integer, ClassList> classLists = new HashMap<>();
 
     public ClassListCollectionRepository() {
         // This class was used to simulate a database and is not used any more.
@@ -21,16 +21,16 @@ public class ClassListCollectionRepository {
         return classLists.values();
     }
 
-    public Optional<ClassList> findById(String id) {
+    public Optional<ClassList> findById(int id) {
         return Optional.ofNullable(classLists.get(id));
     }
 
     public void save(ClassList classList) {
-        String id = classList.classNumber() + classList.classLetter();
+        int id = classList.getId();
         classLists.put(id, classList);
     }
 
-    public void remove(String id) {
+    public void remove(int id) {
         classLists.remove(id);
     }
 

@@ -39,8 +39,8 @@ public abstract class Person {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Parent parent = (Parent) o;
-        return id == parent.id && firstName.equals(parent.firstName) && lastName.equals(parent.lastName);
+        Person person = (Person) o;
+        return id == person.id && firstName.equals(person.firstName) && lastName.equals(person.lastName);
     }
 
     public int hashCode() {
@@ -51,7 +51,7 @@ public abstract class Person {
         return result;
     }
     public String toString() {
-        return "Parent{" +
+        return "Person{" +
                 "id=" + id +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
