@@ -97,7 +97,7 @@ VALUES (3, 2);
 CREATE TABLE IF NOT EXISTS Event
 (
     id           INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
-    name   varchar(255)                        NOT NULL,
+    name   varchar(50)                        NOT NULL,
     date   DATE                                NOT NULL,
     start_time   TIME                          NOT NULL,
     end_time     TIME                          NOT NULL,
@@ -119,39 +119,39 @@ CREATE TABLE IF NOT EXISTS Location
 (
     id           INTEGER AUTO_INCREMENT UNIQUE                NOT NULL,
     side         varchar(11) check (side in ('Storskolen', 'Lilleskolen', 'Krysset')) NOT NULL,
-    name         varchar(255)                                 NOT NULL,
-    room         varchar(255),
-    floor        varchar(255),
+    building     varchar(30)                                 NOT NULL,
+    room         varchar(20),
+    floor        CHAR(2),
     description  varchar(255),
     date_created TIMESTAMP DEFAULT (NOW())                     NOT NULL,
     date_updated TIMESTAMP,
-    primary key (id), UNIQUE (name, room)
+    primary key (id), UNIQUE (building, room)
 );
-INSERT INTO Location (side, name, room, floor, date_created)
+INSERT INTO Location (side, building, room, floor, date_created)
 VALUES ('Storskolen', 'Hovedbygget', '5.klasserommet', '2', CURRENT_TIMESTAMP);
-INSERT INTO Location (side, name, room, floor, date_created)
+INSERT INTO Location (side, building, room, floor, date_created)
 VALUES ('Lilleskolen', '1.klassebygget', 'Hovedrommet', '1', CURRENT_TIMESTAMP);
-INSERT INTO Location (side, name, room, floor, date_created)
+INSERT INTO Location (side, building, room, floor, date_created)
 VALUES ('Lilleskolen', 'Det blå huset', '2.klasserommet', '1', CURRENT_TIMESTAMP);
-INSERT INTO Location (side, name, room, floor, date_created)
+INSERT INTO Location (side, building, room, floor, date_created)
 VALUES ('Lilleskolen', 'Det blå huset', '3.klasserommet', '1', CURRENT_TIMESTAMP);
-INSERT INTO Location (side, name, room, floor, date_created)
+INSERT INTO Location (side, building, room, floor, date_created)
 VALUES ('Lilleskolen', 'Det blå huset', 'Lillesalen', '-1', CURRENT_TIMESTAMP);
-INSERT INTO Location (side, name, room, floor, date_created)
+INSERT INTO Location (side, building, room, floor, date_created)
 VALUES ('Lilleskolen',  'Det røde huset', '4.klasserommet', '1', CURRENT_TIMESTAMP);
-INSERT INTO Location (side, name, room, floor, date_created)
+INSERT INTO Location (side, building, room, floor, date_created)
 VALUES ('Krysset', 'Ute', 'Øvre fotgjengerfelt', '0', CURRENT_TIMESTAMP);
-INSERT INTO Location (side, name, room, floor, date_created)
+INSERT INTO Location (side, building, room, floor, date_created)
 VALUES ('Krysset', 'Ute', 'Nedre fotgjengerfelt', '0', CURRENT_TIMESTAMP);
-INSERT INTO Location (side, name, room, floor, description, date_created)
+INSERT INTO Location (side, building, room, floor, description, date_created)
 VALUES ('Storskolen', 'Ute', 'Hovedbygget', '0', 'Plassen foran', CURRENT_TIMESTAMP);
-INSERT INTO Location (side, name, room, floor, description, date_created)
+INSERT INTO Location (side, building, room, floor, description, date_created)
 VALUES ('Lilleskolen', 'Ute', 'Lilleskolen', '0', 'Sandplassen', CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS Task
 (
     id           INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
-    name         varchar(255)                  NOT NULL,
+    task_name    varchar(70)                  NOT NULL,
     leader_id    INTEGER,
     location_id  INTEGER                       NOT NULL,
     description  varchar(255),
@@ -160,23 +160,23 @@ CREATE TABLE IF NOT EXISTS Task
     primary key (id),
     foreign key (leader_id) references Parent (id)
 );
-INSERT INTO Task (name, location_id, date_created)
+INSERT INTO Task (task_name, location_id, date_created)
 VALUES ('Trafikkvakt', 7, CURRENT_TIMESTAMP);
-INSERT INTO Task (name, location_id, date_created)
+INSERT INTO Task (task_name, location_id, date_created)
 VALUES ('Trafikkvakt', 8, CURRENT_TIMESTAMP);
-INSERT INTO Task (name, location_id, date_created)
+INSERT INTO Task (task_name, location_id, date_created)
 VALUES ('Trafikkvakt', 9, CURRENT_TIMESTAMP);
-INSERT INTO Task (name, location_id, date_created)
+INSERT INTO Task (task_name, location_id, date_created)
 VALUES ('Rigge', 9, CURRENT_TIMESTAMP);
-INSERT INTO Task (name, location_id, date_created)
+INSERT INTO Task (task_name, location_id, date_created)
 VALUES ('Café', 1, CURRENT_TIMESTAMP);
-INSERT INTO Task (name, location_id, date_created)
+INSERT INTO Task (task_name, location_id, date_created)
 VALUES ('Delikatesser', 2, CURRENT_TIMESTAMP);
-INSERT INTO Task (name, location_id, description, date_created)
+INSERT INTO Task (task_name, location_id, description, date_created)
 VALUES ('Rake løv', 2, 'Alt løv skal rakes og legges i gjennomsiktige avfallssekker. Sekkene skal settes ved komposthaugen ved lilleskolen.', CURRENT_TIMESTAMP);
-INSERT INTO Task (name, location_id, date_created)
+INSERT INTO Task (task_name, location_id, date_created)
 VALUES ('Rydde', 9,  CURRENT_TIMESTAMP);
-INSERT INTO Task (name, location_id, date_created)
+INSERT INTO Task (task_name, location_id, date_created)
 VALUES ('Café 10.klasse', 3, CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS Event_task
