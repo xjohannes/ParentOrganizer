@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Parent
     first_name   varchar(100) NOT NULL,
     last_name    varchar(100) NOT NULL,
     email        varchar(100),
-    phone_number varchar(20) NOT NULL,
+    phone_number varchar(20)  NOT NULL,
     date_created TIMESTAMP DEFAULT (NOW()),
     date_updated TIMESTAMP,
     primary key (id),
@@ -50,9 +50,9 @@ VALUES ('Lisa', 'Danielson', 'lisa@lisandra.com', '920 63 000');
 CREATE TABLE IF NOT EXISTS Pupil
 (
     id           INTEGER AUTO_INCREMENT NOT NULL,
-    first_name   varchar(70)                  NOT NULL,
-    last_name    varchar(70)                  NOT NULL,
-    class_id     INTEGER                      NOT NULL,
+    first_name   varchar(70)            NOT NULL,
+    last_name    varchar(70)            NOT NULL,
+    class_id     INTEGER                NOT NULL,
     phone_number varchar(20),
     birthdate    DATE,
     date_created TIMESTAMP DEFAULT (NOW()),
@@ -72,6 +72,8 @@ INSERT INTO Pupil (first_name, last_name, class_id, birthdate)
 VALUES ('Harry', 'Hutch', 2, '2018-06-08');
 INSERT INTO Pupil (first_name, last_name, class_id, birthdate)
 VALUES ('Hermione', 'Hutch', 7, '2018-06-08');
+INSERT INTO Pupil (first_name, last_name, class_id, birthdate)
+VALUES ('Wilhelm', 'Seimore', 7, '2018-09-08');
 
 CREATE TABLE IF NOT EXISTS parent_pupil
 (
@@ -212,53 +214,55 @@ INSERT INTO Event_task (event_id, task_id, date_created)
 VALUES (4, 9, CURRENT_TIMESTAMP);
 
 
-CREATE TABLE IF NOT EXISTS Timeslot
-(
-    id             INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
-    start_time     TIME                          NOT NULL,
-    end_time       TIME                          NOT NULL,
-    date_created   timestamp DEFAULT (NOW())      NOT NULL,
-    date_updated   TIMESTAMP,
-    primary key (id), UNIQUE (start_time, end_time)
-);
-
-INSERT INTO Timeslot (start_time, end_time, date_created)
-VALUES ('08:15:00', '08:45:00', CURRENT_TIMESTAMP);
-INSERT INTO Timeslot (start_time, end_time, date_created)
-VALUES ('17:00:00', '21:00:00', CURRENT_TIMESTAMP);
-INSERT INTO Timeslot (start_time, end_time, date_created)
-VALUES ('10:00:00', '12:00:00', CURRENT_TIMESTAMP);
-INSERT INTO Timeslot (start_time, end_time, date_created)
-VALUES ('12:00:00', '14:00:00', CURRENT_TIMESTAMP);
-INSERT INTO Timeslot (start_time, end_time, date_created)
-VALUES ('14:00:00', '16:00:00', CURRENT_TIMESTAMP);
+-- CREATE TABLE IF NOT EXISTS Timeslot
+-- (
+--     id             INTEGER AUTO_INCREMENT UNIQUE NOT NULL,
+--     start_time     TIME                          NOT NULL,
+--     end_time       TIME                          NOT NULL,
+--     date_created   timestamp DEFAULT (NOW())      NOT NULL,
+--     date_updated   TIMESTAMP,
+--     primary key (id), UNIQUE (start_time, end_time)
+-- );
+--
+-- INSERT INTO Timeslot (start_time, end_time, date_created)
+-- VALUES ('08:15:00', '08:45:00', CURRENT_TIMESTAMP);
+-- INSERT INTO Timeslot (start_time, end_time, date_created)
+-- VALUES ('17:00:00', '21:00:00', CURRENT_TIMESTAMP);
+-- INSERT INTO Timeslot (start_time, end_time, date_created)
+-- VALUES ('10:00:00', '12:00:00', CURRENT_TIMESTAMP);
+-- INSERT INTO Timeslot (start_time, end_time, date_created)
+-- VALUES ('12:00:00', '14:00:00', CURRENT_TIMESTAMP);
+-- INSERT INTO Timeslot (start_time, end_time, date_created)
+-- VALUES ('14:00:00', '16:00:00', CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS Watch
 (
-    id            INTEGER AUTO_INCREMENT   NOT NULL,
-    task_id INTEGER                        NOT NULL,
+    id            INTEGER AUTO_INCREMENT  PRIMARY KEY  NOT NULL,
+    task_id       INTEGER                              NOT NULL,
     parent_id     INTEGER,
     pupil_id      INTEGER,
-    date          DATE                     NOT NULL,
-    start_time    TIME                     NOT NULL,
+    watch_date    DATE                                 NOT NULL,
+    start_time    TIME                                 NOT NULL,
     end_time      TIME,
-    date_created TIMESTAMP DEFAULT (NOW()) NOT NULL,
+    date_created TIMESTAMP DEFAULT (NOW())             NOT NULL,
     date_updated TIMESTAMP,
-    primary key (date, start_time, task_id),
+    unique (watch_date, task_id, pupil_id),
     foreign key (task_id) references Task (id),
     CHECK (parent_id IS NOT NULL OR pupil_id IS NOT NULL)
 );
 
-INSERT INTO Watch (task_id, parent_id, date, start_time,  date_created)
+INSERT INTO Watch (task_id, parent_id, watch_date, start_time,  date_created)
 VALUES ('1', '1', '2023-12-02', '10:00', CURRENT_TIMESTAMP);
-INSERT INTO Watch (task_id, parent_id, date, start_time,  date_created)
+INSERT INTO Watch (task_id, parent_id, watch_date, start_time,  date_created)
 VALUES ('2', '2', '2023-12-02', '10:00', CURRENT_TIMESTAMP);
-INSERT INTO Watch (task_id, parent_id, date, start_time,  date_created)
+INSERT INTO Watch (task_id, parent_id, watch_date, start_time,  date_created)
 VALUES ('3', '3', '2023-12-02', '12:00', CURRENT_TIMESTAMP);
-INSERT INTO Watch (task_id, parent_id, date, start_time,  date_created)
+INSERT INTO Watch (task_id, parent_id, watch_date, start_time,  date_created)
 VALUES ('4', '1', '2023-12-02', '14:00', CURRENT_TIMESTAMP);
-INSERT INTO Watch (task_id, pupil_id,  date, start_time, date_created)
+INSERT INTO Watch (task_id, pupil_id,  watch_date, start_time, date_created)
 VALUES ('9', '5', '2023-12-02', '10:00', CURRENT_TIMESTAMP);
+INSERT INTO Watch (task_id, pupil_id, watch_date, start_time, date_created)
+VALUES ('5', '8',  '2023-12-02', '17:00', CURRENT_TIMESTAMP);
 
 
 
