@@ -1,4 +1,4 @@
-package com.axeweb.parentorganizr.contoller;
+package com.axeweb.parentorganizr.controller;
 
 import com.axeweb.parentorganizr.model.ClassList;
 import com.axeweb.parentorganizr.repository.ClassListRepository;
