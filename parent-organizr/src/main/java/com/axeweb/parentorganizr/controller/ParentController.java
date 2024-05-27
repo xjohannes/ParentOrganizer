@@ -58,6 +58,7 @@ public class ParentController {
         }
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     void delete(@PathVariable Integer id) {
         parentRepository.deleteById(id);

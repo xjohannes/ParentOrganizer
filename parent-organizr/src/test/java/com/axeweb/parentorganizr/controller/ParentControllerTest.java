@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -197,8 +197,10 @@ class ParentControllerTest {
 
     @Test
     void shouldDeleteParent() throws Exception {
-        when(parentRepository.existsById(1)).thenReturn(true);
+       doNothing().when(parentRepository).deleteById(1);
         mockMvc.perform(delete("/parent/1"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
+
+        verify(parentRepository, times(1)).deleteById(1);
     }
  }
