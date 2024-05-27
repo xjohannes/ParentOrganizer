@@ -3,8 +3,8 @@ package com.axeweb.parentorganizr.controller;
 import com.axeweb.parentorganizr.controller.exception.ParentNotFoundException;
 import com.axeweb.parentorganizr.model.Parent;
 import com.axeweb.parentorganizr.repository.ParentRepository;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,13 +31,13 @@ public class ParentController {
     }
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    Parent create(@RequestBody @Validated Parent parent) {
+    Parent create(@RequestBody @Valid Parent parent) {
         return parentRepository.save(parent);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping("/{id}")
-    Parent update(@PathVariable Integer id, @RequestBody @Validated Parent parent) {
+    Parent update(@PathVariable Integer id, @RequestBody @Valid Parent parent) {
       Optional<Parent> existingParent =  parentRepository.findById(id);
         if (existingParent.isPresent()) {
             existingParent.get().setFirstName(parent.getFirstName());
