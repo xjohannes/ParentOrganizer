@@ -1,8 +1,14 @@
 package com.axeweb.parentorganizr.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
+@Setter
+@Getter
 public abstract class Person {
+    // Setters
+    // Getters
     @Id
     protected int id;
     protected String firstName;
@@ -13,28 +19,6 @@ public abstract class Person {
         this.lastName = lastName;
     }
 
-    // Getters
-    public int getId() {
-        return id;
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-
-
-    // Setters
-    public void setId(int id) {
-        this.id = id;
-    }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public boolean equals(Object o) {
         if (this == o) return true;

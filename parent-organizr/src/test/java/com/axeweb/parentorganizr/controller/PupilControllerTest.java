@@ -1,6 +1,5 @@
 package com.axeweb.parentorganizr.controller;
 
-import com.axeweb.parentorganizr.contoller.PupilController;
 import com.axeweb.parentorganizr.model.Pupil;
 import com.axeweb.parentorganizr.repository.PupilRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PupilController.class)
-public class PupilControllerTest {
+class PupilControllerTest {
 
     @Autowired
     MockMvc mockMvc;
