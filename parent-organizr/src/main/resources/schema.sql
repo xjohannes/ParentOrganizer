@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS class_list
 (
-    id           INTEGER AUTO_INCREMENT PRIMARY KEY,
+    id           SERIAL PRIMARY KEY,
     class_letter varchar(2) NOT NULL,
     class_name   varchar(4) ,
     start_year   varchar(4) NOT NULL,
@@ -28,7 +28,7 @@ VALUES ('a', '10a', '2014', '10_2011');
 
 CREATE TABLE IF NOT EXISTS parent
 (
-    id           INTEGER AUTO_INCREMENT PRIMARY KEY,
+    id           SERIAL PRIMARY KEY,
     first_name   varchar(100) NOT NULL,
     last_name    varchar(100) NOT NULL,
     email        varchar(100) UNIQUE,
@@ -51,7 +51,7 @@ VALUES ('Wilhelm', 'Seimore', 'will@Seimore.com', '920 98 000');
 
 CREATE TABLE IF NOT EXISTS pupil
 (
-    id           INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    id           SERIAL PRIMARY KEY NOT NULL,
     first_name   varchar(70)            NOT NULL,
     last_name    varchar(70)            NOT NULL,
     class_id     INTEGER                NOT NULL,
@@ -99,7 +99,7 @@ VALUES (3, 2);
 
 CREATE TABLE IF NOT EXISTS event
 (
-    id           INTEGER AUTO_INCREMENT PRIMARY KEY UNIQUE NOT NULL,
+    id     SERIAL PRIMARY KEY UNIQUE NOT NULL,
     name   varchar(50)                         NOT NULL,
     date   DATE                                NOT NULL,
     start_time   TIME                          NOT NULL,
@@ -120,7 +120,7 @@ VALUES ('Julemarked', '2020-12-01', '10:00:00', '17:00:00', CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS location
 (
-    id           INTEGER AUTO_INCREMENT PRIMARY KEY UNIQUE                NOT NULL,
+    id            SERIAL PRIMARY KEY UNIQUE                NOT NULL,
     side         varchar(11) check (side in ('Storskolen', 'Lilleskolen', 'Krysset')) NOT NULL,
     building     varchar(30)                                  NOT NULL,
     room         varchar(20),
@@ -153,7 +153,7 @@ VALUES ('Lilleskolen', 'Ute', 'Lilleskolen', '0', 'Sandplassen', CURRENT_TIMESTA
 
 CREATE TABLE IF NOT EXISTS task
 (
-    id           INTEGER AUTO_INCREMENT PRIMARY KEY UNIQUE NOT NULL,
+    id            SERIAL PRIMARY KEY UNIQUE NOT NULL,
     task_name    varchar(70)                   NOT NULL,
     leader_id    INTEGER,
     location_id  INTEGER                       NOT NULL,
@@ -184,7 +184,7 @@ VALUES ('Café 10.klasse', 3, CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS event_task
 (
-    id            INTEGER AUTO_INCREMENT PRIMARY KEY UNIQUE NOT NULL,
+    id             SERIAL PRIMARY KEY  NOT NULL,
     event_id      INTEGER                       NOT NULL,
     task_id INTEGER                             NOT NULL,
     date_created  TIMESTAMP DEFAULT (NOW())     NOT NULL,
@@ -217,7 +217,7 @@ VALUES (4, 9, CURRENT_TIMESTAMP);
 
 -- CREATE TABLE IF NOT EXISTS Timeslot
 -- (
---     id             INTEGER AUTO_INCREMENT PRIMARY KEY UNIQUE NOT NULL,
+--     id             INTEGER SERIAL PRIMARY KEY UNIQUE NOT NULL,
 --     start_time     TIME                          NOT NULL,
 --     end_time       TIME                          NOT NULL,
 --     date_created   timestamp DEFAULT (NOW())      NOT NULL,
@@ -238,7 +238,7 @@ VALUES (4, 9, CURRENT_TIMESTAMP);
 
 CREATE TABLE IF NOT EXISTS watch
 (
-    id            INTEGER AUTO_INCREMENT PRIMARY KEY   NOT NULL,
+    id             SERIAL PRIMARY KEY   NOT NULL,
     task_id       INTEGER                              NOT NULL,
     parent_id     INTEGER                              NOT NULL,
     watch_date    DATE                                 NOT NULL,
