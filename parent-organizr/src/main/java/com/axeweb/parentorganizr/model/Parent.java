@@ -22,7 +22,7 @@ public class Parent {
     @NotEmpty
     protected String phoneNumber;
     @Version
-    protected String version;
+    protected Integer version;
 
     // Constructors
     public Parent() {
@@ -33,7 +33,7 @@ public class Parent {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
     }
-    public Parent(int id,String firstName, String lastName, String phoneNumber) {
+    public Parent(int id, String firstName, String lastName, String phoneNumber) {
 
         this.id = id;
 
