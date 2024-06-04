@@ -22,7 +22,7 @@ public class Parent {
     @NotEmpty
     protected String phoneNumber;
     @Version
-    protected String version;
+    protected Integer version;
 
     // Constructors
     public Parent() {

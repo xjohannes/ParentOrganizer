@@ -10,7 +10,6 @@ def generate_pupil():
         "firstName": fake.first_name(),
         "lastName": fake.last_name(),
         "classId": fake.random_int(min=1, max=10),
-
         "version": "1.0.0"
     }
 

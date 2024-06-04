@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pupil")
+@RequestMapping("api/pupil")
 @CrossOrigin
 public class PupilController {
 
