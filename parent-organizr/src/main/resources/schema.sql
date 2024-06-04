@@ -158,12 +158,13 @@ CREATE TABLE IF NOT EXISTS task
   (
       id           SERIAL PRIMARY KEY UNIQUE NOT NULL,
       task_name    varchar(70)                   NOT NULL,
-      leader_id    INTEGER,
-      location_id  INTEGER                       NOT NULL,
+      leader    INTEGER,
+      location  INTEGER                       NOT NULL,
       description  varchar(255),
       date_created TIMESTAMP DEFAULT (NOW())     NOT NULL,
       date_updated TIMESTAMP,
-      foreign key (leader_id) references parent (id)
+      version      integer DEFAULT 0,
+      foreign key (leader) references parent (id)
       --primary key (id),
   );
 -- INSERT INTO task (task_name, location_id, date_created)
