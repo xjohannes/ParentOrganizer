@@ -63,5 +63,4 @@ public class ParentController {
     void delete(@PathVariable Integer id) {
         parentRepository.deleteById(id);
     }
-
 }

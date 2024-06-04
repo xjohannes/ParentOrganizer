@@ -24,7 +24,7 @@ def generate_locationData():
         "building": random.choice(building),
         "roomNr": fake.random_int(min=1, max=20),
         "floor": fake.random_int(min=0, max=3),
-        "description": fake.text(),
+        "description": fake.text(40),
         "dateCreated": str(fake.date_time_this_year()),
         "dateUpdated": str(fake.date_time_this_year()),
     }

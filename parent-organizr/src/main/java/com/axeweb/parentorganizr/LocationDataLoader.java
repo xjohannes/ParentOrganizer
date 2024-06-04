@@ -34,8 +34,8 @@ public class LocationDataLoader implements CommandLineRunner {
             log.info("Loading data into database from json {} ",  LOCATIONS_JSON);
             try (InputStream inputStream = TypeReference.class.getResourceAsStream(LOCATIONS_JSON)) {
                Location[] locations = objectMapper.readValue(inputStream, Location[].class);
-                System.out.println(Arrays.toString(new String[]{"LOCATIONS" + Arrays.stream(locations).findFirst()}));
                 locationRepository.saveAll(Arrays.asList(locations));
+                locationRepository.findAll().forEach(location -> log.info("Location loaded: {}", location));
             } catch (IOException e) {
                 throw new RuntimeException("Failed to load data from json file: \n {}", e);
             }
