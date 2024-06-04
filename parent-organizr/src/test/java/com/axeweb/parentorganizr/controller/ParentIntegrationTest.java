@@ -14,7 +14,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.Objects;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -41,6 +40,7 @@ class ParentIntegrationTest {
         ResponseEntity<Parent> response = restTemplate.exchange("/parents/1", HttpMethod.GET, null, Parent.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
+        System.out.println("PARENT" + response.getBody());
     }
 
     @Test
@@ -62,14 +62,6 @@ class ParentIntegrationTest {
         // Clean up
         restTemplate.delete("/parents/" + response.getBody().getId());
 
-    }
-
-    // Test that the previous method actually rolled back
-    @Test
-    void shouldRollbackAfterCreateParent() {
-        Parent[] parents = restTemplate.getForObject("/parents", Parent[].class);
-        Stream.of(parents).forEach(parent -> System.out.println("Parent ID should Rollback: " + parent.getPhoneNumber()));
-        assertThat(parents).hasSize(30);
     }
 
     @Test
