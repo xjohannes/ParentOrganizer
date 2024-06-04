@@ -121,14 +121,16 @@ CREATE TABLE IF NOT EXISTS event
 CREATE TABLE IF NOT EXISTS location
 (
     id           SERIAL PRIMARY KEY UNIQUE                NOT NULL,
-    side         varchar(11) check (side in ('Storskolen', 'Lilleskolen', 'Krysset')) NOT NULL,
+    location_name varchar(50)                              NOT NULL,
+    place         varchar(11) check (place in ('Storskolen', 'Lilleskolen', 'Krysset')) NOT NULL,
     building     varchar(30)                                  NOT NULL,
-    room         varchar(20),
-    floor        CHAR(2),
+    room_nr      varchar(10),
+    floor        integer,
     description  varchar(255),
     date_created TIMESTAMP DEFAULT (NOW())                     NOT NULL,
     date_updated TIMESTAMP,
-    CHECK ((building != 'UTE' AND room IS NOT NULL) OR building = 'UTE')
+    version      integer DEFAULT 0,
+    CHECK ((building != 'UTE' AND room_nr IS NOT NULL) OR building = 'UTE')
     --primary key (id), UNIQUE (building, room)
 );
 -- INSERT INTO location (side, building, room, floor, date_created)

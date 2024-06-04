@@ -19,14 +19,14 @@ def generate_locationData():
         end_time = fake.time_object()
 
     return {
+        "locationName": random.choice(room),
         "place": random.choice(place),
         "building": random.choice(building),
-        "room": random.choice(room),
+        "roomNr": fake.random_int(min=1, max=20),
         "floor": fake.random_int(min=0, max=3),
         "description": fake.text(),
-        "date_created": str(fake.date_time_this_year()),
-        "date_updated": str(fake.date_time_this_year()),
-        "version": "1.0.0"
+        "dateCreated": str(fake.date_time_this_year()),
+        "dateUpdated": str(fake.date_time_this_year()),
     }
 
 # Generate 130 taskData objects
