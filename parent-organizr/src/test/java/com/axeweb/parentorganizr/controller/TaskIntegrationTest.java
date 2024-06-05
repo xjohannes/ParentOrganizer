@@ -63,7 +63,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
         Task task = new Task("Basar",  parentId, locationId);
         ResponseEntity<Task> response = restTemplate.postForEntity("/tasks", task, Task.class);
 
-          assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody()).isNotNull();
         assertThat(Objects.requireNonNull(response.getBody()).getTaskName()).isEqualTo("Basar");
 

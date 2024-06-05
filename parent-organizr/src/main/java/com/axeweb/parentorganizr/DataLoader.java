@@ -3,9 +3,11 @@ package com.axeweb.parentorganizr;
 import com.axeweb.parentorganizr.model.Location;
 import com.axeweb.parentorganizr.model.Parent;
 import com.axeweb.parentorganizr.model.Task;
+import com.axeweb.parentorganizr.model.Watch;
 import com.axeweb.parentorganizr.repository.LocationRepository;
 import com.axeweb.parentorganizr.repository.ParentRepository;
 import com.axeweb.parentorganizr.repository.TaskRepository;
+import com.axeweb.parentorganizr.repository.WatchRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -26,14 +28,16 @@ public class DataLoader implements CommandLineRunner {
     private final LocationRepository locationRepository;
     private final ParentRepository parentRepository;
     private final TaskRepository taskRepository;
+    private final WatchRepository watchRepository;
     private static final String logText = "Loading data into database from json {} ";
     private static final String errorText = "Failed to load data from json file: \n {}";
 
-    public DataLoader(ObjectMapper objectMapper, LocationRepository locationRepository, ParentRepository parentRepository, TaskRepository taskRepository) {
+    public DataLoader(ObjectMapper objectMapper, LocationRepository locationRepository, ParentRepository parentRepository, TaskRepository taskRepository, WatchRepository watchRepository) {
         this.objectMapper = objectMapper;
         this.locationRepository = locationRepository;
         this.parentRepository = parentRepository;
         this.taskRepository = taskRepository;
+        this.watchRepository = watchRepository;
     }
 
     @Override
@@ -41,6 +45,7 @@ public class DataLoader implements CommandLineRunner {
         loadParents();
         loadLocations();
         loadTasks();
+        loadWatches();
     }
     private void loadParents() {
         long count = parentRepository.count();
@@ -87,5 +92,18 @@ public class DataLoader implements CommandLineRunner {
         }
     }
 
-
+    private void loadWatches() {
+        long count = watchRepository.count();
+        log.info("Watch count in database: {}", count);
+        if(watchRepository.count() == 0) {
+            String WATCH_JSON = "/data/watchData.json";
+            log.info(logText,  WATCH_JSON);
+            try (InputStream inputStream = TypeReference.class.getResourceAsStream(WATCH_JSON)) {
+               Watch[] watches = objectMapper.readValue(inputStream, Watch[].class);
+                watchRepository.saveAll(Arrays.asList(watches));
+            } catch (IOException e) {
+                throw new RuntimeException(errorText, e);
+            }
+        }
+    }
 }

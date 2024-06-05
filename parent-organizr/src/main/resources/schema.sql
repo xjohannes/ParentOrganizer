@@ -244,10 +244,11 @@ CREATE TABLE IF NOT EXISTS watch
     task       INTEGER                              NOT NULL,
     parent     INTEGER                              NOT NULL,
     watch_date    DATE                                 NOT NULL,
-    start_time    TIME                                 NOT NULL,
-    end_time      TIME,
+    start_time    VARCHAR(5)                                 NOT NULL,
+    end_time      VARCHAR(5),
     date_created TIMESTAMP DEFAULT (NOW())             NOT NULL,
     date_updated TIMESTAMP,
+    version      integer DEFAULT 0,
     foreign key (task) references task(id)
 
 );
