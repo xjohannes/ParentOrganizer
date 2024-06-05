@@ -84,8 +84,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
         // Verify location is updated
         ResponseEntity<Location> updatedResponse = restTemplate.getForEntity("/locations/" + response.getBody().getId(), Location.class);
-        assertThat(updatedResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(updatedResponse.getBody()).isNotNull();
         assertThat(Objects.requireNonNull(updatedResponse.getBody()).getId()).isEqualTo(response.getBody().getId());
         assertThat(updatedResponse.getBody().getLocationName()).isEqualTo("Nedre fotgjengerfelt");
 

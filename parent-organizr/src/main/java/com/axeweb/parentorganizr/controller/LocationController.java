@@ -35,7 +35,7 @@ public class LocationController {
         return locationRepository.save(location);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @PutMapping("/{id}")
     public Location update(@PathVariable Integer id, @RequestBody @Valid Location location) {
         Location existingLocation = locationRepository.findById(id).orElseThrow(LocationNotFoundException::new);
