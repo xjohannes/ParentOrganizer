@@ -14,19 +14,25 @@ def generate_norwegian_phone_number():
     phone_number = f"+479{xx:02d}{rest_of_number}"
     return phone_number
 
+
+id = 1  # Initialize id to 1
+
 # Define a function to generate a parent object
 def generate_parent():
-    return {
+    global id  # Declare id as global to modify its value
+    parent = {
+        "id": id,
         "firstName": fake.first_name(),
         "lastName": fake.last_name(),
         "email": fake.email(),
         "phoneNumber": generate_norwegian_phone_number()
-
     }
+    id += 1  # Increment id
+    return parent
 
 # Generate 30 parent objects
 parents = [generate_parent() for _ in range(30)]
 
 # Write the parent objects to a JSON file
-with open('./data/parents.json', 'w') as f:
+with open('./data/parentsWithId.json', 'w') as f:
     json.dump(parents, f, indent=4)

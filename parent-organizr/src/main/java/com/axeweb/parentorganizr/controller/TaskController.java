@@ -5,7 +5,6 @@ import com.axeweb.parentorganizr.model.Task;
 import com.axeweb.parentorganizr.repository.TaskRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,7 +51,6 @@ public class TaskController {
     }
 
 
-    @Transactional
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {

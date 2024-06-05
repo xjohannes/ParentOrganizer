@@ -2,8 +2,12 @@ package com.axeweb.parentorganizr.model;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
+
+import java.sql.Timestamp;
 
 @Data
 public class Location {
@@ -19,6 +23,10 @@ public class Location {
     private String roomNr;
     private Integer floor;
     private String description;
+    @CreatedDate
+    private Timestamp dateCreated;
+    @LastModifiedDate
+    private Timestamp dateUpdated;
     @Version
     private Integer version;
 

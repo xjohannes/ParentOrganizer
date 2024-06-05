@@ -2,10 +2,13 @@ package com.axeweb.parentorganizr.model;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
 import org.springframework.util.Assert;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +24,10 @@ public class Parent {
     protected String email;
     @NotEmpty
     protected String phoneNumber;
+    @CreatedDate
+    protected Timestamp dateCreated;
+    @LastModifiedDate
+    protected Timestamp dateUpdated;
     @Version
     protected Integer version;
 
